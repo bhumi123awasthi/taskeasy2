@@ -6,6 +6,7 @@ import { useProject } from '../hooks/useProject';
 import { createWorkItem } from "../services/workItemService";
 
 const SprintFixed = () => {
+  const API_BASE = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE : (import.meta.env.VITE_API_BASE || 'http://localhost:5000/api');
   const [showModal, setShowModal] = useState(false);
   const [showWorkItemModal, setShowWorkItemModal] = useState(false);
   const [sprintName, setSprintName] = useState("");
@@ -30,7 +31,7 @@ const SprintFixed = () => {
     const fetchProjects = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:5000/api/projects", {
+        const res = await axios.get(`${API_BASE}/projects`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.data.projects && res.data.projects.length > 0) {
@@ -50,7 +51,7 @@ const SprintFixed = () => {
       try {
         const token = localStorage.getItem("token");
         const res = await axios.get(
-          `http://localhost:5000/api/projects/${selectedProjectId}/sprints`,
+          `${API_BASE}/projects/${selectedProjectId}/sprints`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         if (res.data.sprints && Array.isArray(res.data.sprints)) {
@@ -100,7 +101,7 @@ const SprintFixed = () => {
       };
 
       const res = await axios.post(
-        `http://localhost:5000/api/projects/${projectId}/sprints`,
+        `${API_BASE}/projects/${projectId}/sprints`,
         payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );

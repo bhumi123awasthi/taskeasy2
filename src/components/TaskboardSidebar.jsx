@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 
 export default function TaskboardSidebar({ projectName }) {
+  const API_BASE = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE : (import.meta.env.VITE_API_BASE || 'http://localhost:5000/api');
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -42,7 +43,7 @@ export default function TaskboardSidebar({ projectName }) {
     if (projectId) {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get(`http://localhost:5000/api/projects/${projectId}`, {
+        const res = await axios.get(`${API_BASE}/projects/${projectId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         navigate(path, { state: { project: res.data.project || res.data } });

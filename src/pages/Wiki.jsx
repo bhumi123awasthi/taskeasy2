@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import API_BASE from '../utils/apiBase';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEditor, EditorContent } from "@tiptap/react";
@@ -117,7 +118,7 @@ export default function Wiki({ onExit }) {
     const fetchProjects = async () => {
       if (!token) return;
       try {
-        const res = await axios.get("http://localhost:5000/api/projects", {
+        const res = await axios.get(`${API_BASE}/projects`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const list = res.data?.projects || res.data || [];
@@ -159,7 +160,7 @@ export default function Wiki({ onExit }) {
     }
 
     const content = editor.getHTML();
-    const url = `http://localhost:5000/api/projects/${encodeURIComponent(projectToUse)}/wiki`;
+    const url = `${API_BASE}/projects/${encodeURIComponent(projectToUse)}/wiki`;
 
     try {
       setLoading(true);

@@ -11,6 +11,7 @@ import pipelineService from '../services/pipelineService';
  */
 
 export default function App() {
+  const API_BASE = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE : (import.meta.env.VITE_API_BASE || 'http://localhost:5000/api');
   const { projectName, projectInitial } = useProject();
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -28,7 +29,7 @@ export default function App() {
     const fetchProjects = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:5000/api/projects', {
+        const res = await axios.get(`${API_BASE}/projects`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.data.projects && res.data.projects.length > 0) {

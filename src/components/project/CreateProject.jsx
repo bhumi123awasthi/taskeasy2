@@ -10,7 +10,8 @@ export default function CreateProject({ onCreate }) {
   const [loading, setLoading] = useState(false);
 
   const token = localStorage.getItem("token");
-  const url = "http://localhost:5000/api/projects";
+  const API_BASE = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE : (import.meta.env.VITE_API_BASE || 'http://localhost:5000/api');
+  const url = `${API_BASE}/projects`;
 
  const handleSubmit = async (e) => {
   e.preventDefault();

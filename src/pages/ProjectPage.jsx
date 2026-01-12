@@ -10,7 +10,8 @@ import DisplayPull from "../components/project/DisplayPull";
 import { useNavigate } from "react-router-dom";
 
 export default function ProjectPage() {
-  const baseURL = "http://localhost:5000/api/projects";
+  const API_BASE = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE : (import.meta.env.VITE_API_BASE || 'http://localhost:5000/api');
+  const baseURL = `${API_BASE}/projects`;
   const [isOpen, setIsOpen] = useState(false);
   const token = localStorage.getItem("token");
   const toggleDrawer = () => setIsOpen(!isOpen);

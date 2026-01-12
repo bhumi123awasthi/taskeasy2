@@ -52,7 +52,8 @@ export function useProject() {
       try {
         setLoading(true);
         setError(null);
-        const res = await axios.get(`http://localhost:5000/api/projects/${projectId}`, {
+        const API_BASE = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE : (import.meta.env.VITE_API_BASE || 'http://localhost:5000/api');
+        const res = await axios.get(`${API_BASE}/projects/${projectId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!mounted) return;

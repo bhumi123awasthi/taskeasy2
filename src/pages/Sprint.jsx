@@ -4,6 +4,8 @@ import TaskboardSidebar from "../components/TaskboardSidebar";
 import { useProject } from '../hooks/useProject';
 import { deleteWorkItem } from "../services/workItemService";
 
+import API_BASE from '../utils/apiBase';
+
 /* ErrorBoundary */
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -27,9 +29,7 @@ class ErrorBoundary extends React.Component {
 }
 
 const TaskEasySprintsPage = () => {
-  const API_URL =
-    (import.meta && import.meta.env && import.meta.env.VITE_API_URL) ||
-    "http://localhost:5000/api";
+  const API_URL = API_BASE;
 
   const [projects, setProjects] = useState([]);
   const [selectedProjectId, setSelectedProjectId] = useState("");
