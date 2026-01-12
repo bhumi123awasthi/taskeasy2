@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useProject } from "../hooks/useProject";
+import API_BASE from '../utils/apiBase';
 import {
   LayoutGrid,
   LayoutList,
@@ -17,7 +18,6 @@ import {
 } from "lucide-react";
 
 export default function TaskboardSidebar({ projectName }) {
-  import API_BASE from '../utils/apiBase';
   const API_BASE_LOCAL = API_BASE;
   const navigate = useNavigate();
   const location = useLocation();

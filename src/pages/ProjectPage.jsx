@@ -8,9 +8,9 @@ import DisplayProject from "../components/project/DisplayProject";
 import DisplayWork from "../components/project/DisplayWork";
 import DisplayPull from "../components/project/DisplayPull";
 import { useNavigate } from "react-router-dom";
+import API_BASE from '../utils/apiBase';
 
 export default function ProjectPage() {
-  import API_BASE from '../utils/apiBase';
   const API_BASE_LOCAL = API_BASE;
   const baseURL = `${API_BASE}/projects`;
   const [isOpen, setIsOpen] = useState(false);

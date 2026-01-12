@@ -3,9 +3,9 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import TaskboardSidebar from '../../TaskboardSidebar';
 import ProjectName from '../../../components/ProjectName';
+import API_BASE from '../../../../utils/apiBase';
 
 export default function WorkItemEdit() {
-  import API_BASE from '../../../../utils/apiBase';
   const API_BASE_LOCAL = API_BASE;
   const { projectId, id } = useParams();
   const location = useLocation();

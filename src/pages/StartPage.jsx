@@ -9,13 +9,13 @@ import { CirclePlus } from "lucide-react";
 import DisplayWork from "../components/project/DisplayWork";
 import DisplayPull from "../components/project/DisplayPull";
 import LeftSidebar from "../components/LeftSidebar";
+import API_BASE from '../utils/apiBase';
 
 export default function StartPage() {
   const location = useLocation();
   const incomingProject = location.state?.project;
   const navigate = useNavigate();
 
-  import API_BASE from '../utils/apiBase';
   const API_BASE_LOCAL = API_BASE;
   const baseURL = `${API_BASE}/projects`;
   const HOST_BASE = API_BASE.replace(/\/api$/, '');
