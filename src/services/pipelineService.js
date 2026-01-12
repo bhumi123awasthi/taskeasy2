@@ -1,4 +1,5 @@
-const API_URL = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE : (import.meta.env.VITE_API_BASE || 'http://localhost:5000/api');
+import API_BASE from '../utils/apiBase';
+const API_URL = API_BASE;
 
 const pipelineService = {
   // Create a new pipeline

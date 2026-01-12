@@ -15,7 +15,8 @@ export default function StartPage() {
   const incomingProject = location.state?.project;
   const navigate = useNavigate();
 
-  const API_BASE = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE : (import.meta.env.VITE_API_BASE || 'http://localhost:5000/api');
+  import API_BASE from '../utils/apiBase';
+  const API_BASE_LOCAL = API_BASE;
   const baseURL = `${API_BASE}/projects`;
   const HOST_BASE = API_BASE.replace(/\/api$/, '');
   const token = localStorage.getItem("token");

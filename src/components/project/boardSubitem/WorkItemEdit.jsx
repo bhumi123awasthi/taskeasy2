@@ -5,7 +5,8 @@ import TaskboardSidebar from '../../TaskboardSidebar';
 import ProjectName from '../../../components/ProjectName';
 
 export default function WorkItemEdit() {
-  const API_BASE = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE : (import.meta.env.VITE_API_BASE || 'http://localhost:5000/api');
+  import API_BASE from '../../../../utils/apiBase';
+  const API_BASE_LOCAL = API_BASE;
   const { projectId, id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();

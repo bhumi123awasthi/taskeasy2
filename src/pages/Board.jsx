@@ -19,7 +19,8 @@ import { Link } from "react-router-dom";
 import ProjectName from '../components/ProjectName';
 import { useProject } from '../hooks/useProject';
 
-const API_BASE = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE : (import.meta.env.VITE_API_BASE || 'http://localhost:5000/api');
+import API_BASE from '../utils/apiBase';
+const API_BASE_LOCAL = API_BASE;
 
 export default function TaskEasyBacklogsExact() {
   const { projectName, projectId: activeProjectId } = useProject();

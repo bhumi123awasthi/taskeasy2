@@ -6,7 +6,8 @@ import { useProject } from '../hooks/useProject';
 import { createWorkItem } from "../services/workItemService";
 
 const SprintFixed = () => {
-  const API_BASE = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE : (import.meta.env.VITE_API_BASE || 'http://localhost:5000/api');
+  import API_BASE from '../utils/apiBase';
+  const API_BASE_LOCAL = API_BASE;
   const [showModal, setShowModal] = useState(false);
   const [showWorkItemModal, setShowWorkItemModal] = useState(false);
   const [sprintName, setSprintName] = useState("");

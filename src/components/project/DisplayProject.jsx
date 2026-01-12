@@ -8,7 +8,8 @@ export default function DisplayProject({ projects, setProjects }) {
   const [openMenuId, setOpenMenuId] = useState(null);
   const menuRefs = useRef({});
   const navigate = useNavigate();
-  const API_BASE = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE : (import.meta.env.VITE_API_BASE || 'http://localhost:5000/api');
+  import API_BASE from '../../utils/apiBase';
+  const API_BASE_LOCAL = API_BASE;
   const url = API_BASE.replace(/\/api$/, '');
 
   const token = localStorage.getItem("token");
