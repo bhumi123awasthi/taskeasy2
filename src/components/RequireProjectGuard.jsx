@@ -9,11 +9,15 @@ export default function RequireProjectGuard({ children }) {
 
   useEffect(() => {
     const path = location.pathname || '';
+    const token = localStorage.getItem('token');
 
-    // If no active project, redirect to start page (except auth/start)
+    // If no active project, redirect depending on authentication state:
+    // - authenticated users => go to /start (select a project)
+    // - unauthenticated users => go to /login
     if (!projectId) {
       if (!path.startsWith('/login') && !path.startsWith('/signup') && !path.startsWith('/start')) {
-        navigate('/start', { replace: true });
+        if (token) navigate('/start', { replace: true });
+        else navigate('/login', { replace: true });
       }
       return;
     }
