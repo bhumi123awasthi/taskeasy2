@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import ProjectName from '../components/ProjectName';
 import { useProject } from '../hooks/useProject';
 import { createWorkItem } from "../services/workItemService";
+import API_BASE from '../utils/apiBase';
 
 const SprintFixed = () => {
-  import API_BASE from '../utils/apiBase';
   const API_BASE_LOCAL = API_BASE;
   const [showModal, setShowModal] = useState(false);
   const [showWorkItemModal, setShowWorkItemModal] = useState(false);

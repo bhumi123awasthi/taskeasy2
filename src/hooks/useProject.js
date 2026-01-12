@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useProjectContext } from '../context/ProjectProvider';
+import API_BASE from '../utils/apiBase';
 
 /**
  * Combined hook that exposes the ProjectContext helpers and also
@@ -52,7 +53,6 @@ export function useProject() {
       try {
         setLoading(true);
         setError(null);
-        import API_BASE from '../utils/apiBase';
         const API_BASE_LOCAL = API_BASE;
         const res = await axios.get(`${API_BASE}/projects/${projectId}`, {
           headers: { Authorization: `Bearer ${token}` },
