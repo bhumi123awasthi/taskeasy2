@@ -1,4 +1,6 @@
 // API Base URL configuration
 const API_BASE = import.meta.env.VITE_API_BASE;
+console.log("API BASE =", import.meta.env.VITE_API_BASE);
+
 
 export default API_BASE;
