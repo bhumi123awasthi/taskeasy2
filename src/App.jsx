@@ -49,64 +49,58 @@ import WorkItemEdit from "./components/project/boardSubitem/WorkItemEdit";
 
 
 
-// Layout wrapper for protected routes
-const ProtectedLayout = () => {
-  return (
-    <RequireProjectGuard>
-      <Routes>
-        <Route path="/api/home" element={<Home />} />
-        <Route path="/api/project" element={<ProjectManagement />} />
-        <Route path="/api/cdic" element={<CdicPipeline />} />
-        <Route path="/api/projects" element={<ProjectPage />} />
-        <Route path="/pro" element={<ProjectPage />} />
-        <Route path="/start" element={<StartPage />} />
-        <Route path="/startpage" element={<StartPage />} />
-        <Route path="/summary" element={<Summary />} />
-        <Route path="/projects/:projectId/summary" element={<Summary />} />
-        <Route path="/Wiki" element={<WikiPage />} />
-        <Route path="/Dashboard" element={<DashBoard />} />
-        <Route path="/Board" element={<Board />} />
-        <Route path="/Sprint" element={<Sprint />} />
-        <Route path="/SprintTest" element={<SprintTest />} />
-        <Route path="/Workitem" element={<Workitem />} />
-        <Route path="/taskbar" element={<Taskbar />} />
-        <Route path="/Taskboard" element={<Taskboard />} />
-        <Route path="/queries" element={<Queries />} />
-        <Route path="/queryboard" element={<QueryBoard />} />
-        <Route path="/timelogsummary" element={<Timelog />} />
-        <Route path="/deliverypage" element={<Delivery />} />
-        <Route path="/pipelines" element={<Pipelines />} />
-        <Route path="/release" element={<Release />} />
-        <Route path="/environment" element={<Environment />} />
-        <Route path="/library" element={<Library />} />
-        <Route path="/deploymentpage" element={<Deploymentpage />} />
-        <Route path="/taskgroup" element={<Taskgrouppage />} />
-        <Route path="/workitemdetail" element={<Workitemdetail/>} />
-        <Route path="/workitem/:projectId/:id" element={<WorkItemEdit />} />
-        <Route path="/project/:id" element={<ProjectDetail />} />
-        <Route path="/project/create" element={<CreateProject />} />
-        <Route path="/project/edit/:id" element={<EditProject />} />
-        <Route path="/create/wiki" element={<Wiki />} />
-      </Routes>
-    </RequireProjectGuard>
-  );
-};
-
 function App() {
   return (
     <>
       <BrowserRouter>
         <ProjectProvider>
-          <Routes>
-            {/* Public Auth Routes - NO guard */}
-            <Route path="/api/signin" element={<Login />} />
-            <Route path="/api/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            
-            {/* Protected Routes */}
-            <Route path="/*" element={<ProtectedLayout />} />
-          </Routes>
+          <RequireProjectGuard>
+            <Routes>
+              {/* Public Auth Routes - NO guard needed (guard checks these routes first) */}
+              <Route path="/api/signin" element={<Login />} />
+              <Route path="/api/signup" element={<Signup />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              
+              {/* Protected Application Routes */}
+              <Route path='/api/home' element={<Home />} />
+              <Route path='/api/project' element={<ProjectManagement />} />
+              <Route path="/api/cdic" element={<CdicPipeline />} />
+              <Route path="/api/projects" element={<ProjectPage />} />
+              <Route path="/pro" element={<ProjectPage />} />
+              <Route path="/start" element={<StartPage />} />
+              <Route path="/startpage" element={<StartPage />} />
+              <Route path="/summary" element={<Summary />} />
+              <Route path="/projects/:projectId/summary" element={<Summary />} />
+              <Route path="/Wiki" element={<WikiPage />} />
+              <Route path="/Dashboard" element={<DashBoard />} />
+              <Route path="/Board" element={<Board />} />
+              <Route path="/Sprint" element={<Sprint />} />
+              <Route path="/SprintTest" element={<SprintTest />} />
+              <Route path="/Workitem" element={<Workitem />} />
+              <Route path="/taskbar" element={<Taskbar />} />
+              <Route path="/Taskboard" element={<Taskboard />} />
+              <Route path="/queries" element={<Queries />} />
+              <Route path="/queryboard" element={<QueryBoard />} />
+              <Route path="/timelogsummary" element={<Timelog />} />
+              <Route path="/deliverypage" element={<Delivery />} />
+              <Route path="/pipelines" element={<Pipelines />} />
+              <Route path="/release" element={<Release />} />
+              <Route path="/environment" element={<Environment />} />
+              <Route path="/library" element={<Library />} />
+              <Route path="/deploymentpage" element={<Deploymentpage />} />
+              <Route path="/taskgroup" element={<Taskgrouppage />} />
+              <Route path="/workitemdetail" element={<Workitemdetail/>} />
+              <Route path="/workitem/:projectId/:id" element={<WorkItemEdit />} />
+              <Route path="/project/:id" element={<ProjectDetail />} />
+              <Route path="/project/create" element={<CreateProject />} />
+              <Route path="/project/edit/:id" element={<EditProject />} />
+              <Route path="/create/wiki" element={<Wiki />} />
+              
+              {/* Catch-all - redirect to login */}
+              <Route path='*' element={<Login />} />
+            </Routes>
+          </RequireProjectGuard>
         </ProjectProvider>
       </BrowserRouter>
     </>
