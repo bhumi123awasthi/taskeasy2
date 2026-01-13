@@ -23,7 +23,7 @@ export default function LoginForm() {
       if (result.token) {
         toast.success("Login successful! Redirecting...");
         setTimeout(() => {
-          navigate("/api/home");
+          navigate("/start");
         }, 1000);
       } else {
         toast.error("Login failed. Please try again.");

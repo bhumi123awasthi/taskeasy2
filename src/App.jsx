@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import './App.css';
 
 import Home from './pages/Home';
@@ -17,6 +17,7 @@ import Wiki from "./pages/Wiki";
 import StartPage from "./pages/StartPage";
 import Summary from "./pages/Summary";
 import { ProjectProvider } from './context/ProjectProvider';
+import AuthGuard from './components/AuthGuard';
 import RequireProjectGuard from './components/RequireProjectGuard';
 import WikiPage from "./pages/WikiPage";
 import DashBoard from "./pages/Dashboard";
@@ -53,14 +54,13 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <ProjectProvider>
-          <RequireProjectGuard>
-            <Routes>
-              {/* Public Auth Routes - NO guard needed (guard checks these routes first) */}
-              <Route path="/api/signin" element={<Login />} />
-              <Route path="/api/signup" element={<Signup />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
+        <AuthGuard>
+          <ProjectProvider>
+            <RequireProjectGuard>
+              <Routes>
+                {/* Public Auth Routes */}
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
               
               {/* Protected Application Routes */}
               <Route path='/api/home' element={<Home />} />
@@ -97,11 +97,13 @@ function App() {
               <Route path="/project/edit/:id" element={<EditProject />} />
               <Route path="/create/wiki" element={<Wiki />} />
               
-              {/* Catch-all - redirect to login */}
-              <Route path='*' element={<Login />} />
+              {/* Catch-all - redirect to start */}
+              <Route path="/" element={<Navigate to="/start" replace />} />
+              <Route path='*' element={<Navigate to="/start" replace />} />
             </Routes>
           </RequireProjectGuard>
         </ProjectProvider>
+      </AuthGuard>
       </BrowserRouter>
     </>
   );

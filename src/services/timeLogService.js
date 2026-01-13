@@ -1,16 +1,11 @@
-import axios from 'axios';
-
-const API_BASE = 'http://localhost:5000/api';
+import axiosInstance from './axiosInstance';
 
 export const fetchTimeLogSummary = async (projectId, filters = {}) => {
   try {
-    const token = localStorage.getItem('token');
     const params = new URLSearchParams(filters).toString();
-    const response = await axios.get(
-      `${API_BASE}/projects/${projectId}/timelogs${params ? '?' + params : ''}`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
+    const response = await axiosInstance.get(
+      `/projects/${projectId}/timelogs${params ? '?' + params : ''}`,
+      {}
     );
     return response.data;
   } catch (error) {
@@ -21,13 +16,9 @@ export const fetchTimeLogSummary = async (projectId, filters = {}) => {
 
 export const updateTimeSpent = async (projectId, workItemId, timeSpent) => {
   try {
-    const token = localStorage.getItem('token');
-    const response = await axios.patch(
-      `${API_BASE}/projects/${projectId}/workitems/${workItemId}`,
-      { timeSpent },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
+    const response = await axiosInstance.patch(
+      `/projects/${projectId}/workitems/${workItemId}`,
+      { timeSpent }
     );
     return response.data;
   } catch (error) {
