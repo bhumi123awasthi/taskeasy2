@@ -3,14 +3,12 @@ import { Ellipsis, Trash, Pencil, Link as LinkIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useProject } from '../../hooks/useProject';
-import API_BASE from '../../utils/apiBase';
 
 export default function DisplayProject({ projects, setProjects }) {
   const [openMenuId, setOpenMenuId] = useState(null);
   const menuRefs = useRef({});
   const navigate = useNavigate();
-  const API_BASE_LOCAL = API_BASE;
-  const url = API_BASE.replace(/\/api$/, '');
+  const url = "http://localhost:5000";
 
   const token = localStorage.getItem("token");
 

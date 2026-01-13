@@ -4,10 +4,8 @@ import { Link } from "react-router-dom";
 import ProjectName from '../components/ProjectName';
 import { useProject } from '../hooks/useProject';
 import { createWorkItem } from "../services/workItemService";
-import API_BASE from '../utils/apiBase';
 
 const SprintFixed = () => {
-  const API_BASE_LOCAL = API_BASE;
   const [showModal, setShowModal] = useState(false);
   const [showWorkItemModal, setShowWorkItemModal] = useState(false);
   const [sprintName, setSprintName] = useState("");
@@ -32,7 +30,7 @@ const SprintFixed = () => {
     const fetchProjects = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(`${API_BASE}/projects`, {
+        const res = await axios.get("http://localhost:5000/api/projects", {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.data.projects && res.data.projects.length > 0) {
@@ -52,7 +50,7 @@ const SprintFixed = () => {
       try {
         const token = localStorage.getItem("token");
         const res = await axios.get(
-          `${API_BASE}/projects/${selectedProjectId}/sprints`,
+          `http://localhost:5000/api/projects/${selectedProjectId}/sprints`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         if (res.data.sprints && Array.isArray(res.data.sprints)) {
@@ -102,7 +100,7 @@ const SprintFixed = () => {
       };
 
       const res = await axios.post(
-        `${API_BASE}/projects/${projectId}/sprints`,
+        `http://localhost:5000/api/projects/${projectId}/sprints`,
         payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );

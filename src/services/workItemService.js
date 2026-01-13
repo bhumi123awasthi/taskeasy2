@@ -1,6 +1,7 @@
 import axios from 'axios';
 import projectContext from './projectContext';
-import API_BASE from '../utils/apiBase';
+
+const API_BASE = 'http://localhost:5000/api';
 
 function ensureActiveProject(providedId) {
   const active = projectContext.getActiveProjectId();

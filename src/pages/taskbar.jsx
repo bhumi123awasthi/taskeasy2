@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { LayoutGrid, ChevronDown, ChevronUp } from 'lucide-react'
 import RegisterForm from '../components/RegisterForm';
-import API_BASE from '../utils/apiBase';
 
 export default function Taskbar() {
   const [open, isOpen] = useState(false);
@@ -18,7 +17,7 @@ export default function Taskbar() {
     if (!token || !projectId) return;
     (async () => {
       try {
-        const res = await axios.get(`${API_BASE}/projects/${projectId}/workitems`, {
+        const res = await axios.get(`http://localhost:5000/api/projects/${projectId}/workitems`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setWorkItems(res.data?.items || []);
@@ -36,7 +35,7 @@ export default function Taskbar() {
       if (!projectId) return alert("Project ID missing");
       const payload = { title, description, type, state: "New" };
       const res = await axios.post(
-        `${API_BASE}/projects/${projectId}/workitems`,
+        `http://localhost:5000/api/projects/${projectId}/workitems`,
         payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );

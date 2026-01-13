@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useProject } from "../hooks/useProject";
-import API_BASE from '../utils/apiBase';
 import {
   LayoutGrid,
   LayoutList,
@@ -18,7 +17,6 @@ import {
 } from "lucide-react";
 
 export default function TaskboardSidebar({ projectName }) {
-  const API_BASE_LOCAL = API_BASE;
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -44,7 +42,7 @@ export default function TaskboardSidebar({ projectName }) {
     if (projectId) {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get(`${API_BASE}/projects/${projectId}`, {
+        const res = await axios.get(`http://localhost:5000/api/projects/${projectId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         navigate(path, { state: { project: res.data.project || res.data } });

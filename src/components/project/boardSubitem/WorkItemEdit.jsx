@@ -3,10 +3,8 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import TaskboardSidebar from '../../TaskboardSidebar';
 import ProjectName from '../../../components/ProjectName';
-import API_BASE from '../../../../utils/apiBase';
 
 export default function WorkItemEdit() {
-  const API_BASE_LOCAL = API_BASE;
   const { projectId, id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -48,7 +46,7 @@ export default function WorkItemEdit() {
     const fetchWorkItem = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get(`${API_BASE}/projects/${projectId}/workitems/${id}`, {
+        const res = await axios.get(`http://localhost:5000/api/projects/${projectId}/workitems/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const item = res.data.item;
@@ -84,7 +82,7 @@ export default function WorkItemEdit() {
       const base = parseFloat(timeSpent) || 0;
       const sessionHours = (sessionSeconds || 0) / 3600;
       const payload = { timeSpent: Number((base + sessionHours).toFixed(4)), state: status, description, reason: status !== 'Completed' ? reason : '' };
-      await axios.patch(`${API_BASE}/projects/${projectId}/workitems/${id}`, payload, {
+      await axios.patch(`http://localhost:5000/api/projects/${projectId}/workitems/${id}`, payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
       navigate(-1); // Go back
@@ -131,7 +129,7 @@ export default function WorkItemEdit() {
     
     try {
       const token = localStorage.getItem('token');
-      await axios.patch(`${API_BASE}/projects/${projectId}/workitems/${id}`, 
+      await axios.patch(`http://localhost:5000/api/projects/${projectId}/workitems/${id}`, 
         { timeSpent: newTotal }, 
         { headers: { Authorization: `Bearer ${token}` } }
       );

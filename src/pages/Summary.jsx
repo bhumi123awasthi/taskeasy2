@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from 'react-router-dom';
 import LeftSidebar from "../components/LeftSidebar";
 import axios from 'axios';
-import API_BASE from '../utils/apiBase';
 
 export default function Summary() {
   const location = useLocation();
@@ -19,7 +18,7 @@ export default function Summary() {
     const fetchProject = async () => {
       try {
         const res = await axios.get(
-          `${API_BASE}/projects/${projectId}`,
+          `http://localhost:5000/api/projects/${projectId}`, 
           { headers: token ? { Authorization: `Bearer ${token}` } : {} }
         );
         setProject(res.data);

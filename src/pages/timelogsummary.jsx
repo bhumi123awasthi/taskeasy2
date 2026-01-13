@@ -4,7 +4,6 @@ import { useLocation, Link } from 'react-router-dom';
 import ProjectName from '../components/ProjectName';
 import TaskboardSidebar from "../components/TaskboardSidebar";
 import axios from 'axios';
-import API_BASE from '../utils/apiBase';
 
 /**
  * Time Log Summary page component.
@@ -77,7 +76,7 @@ export default function App() {
         return;
       }
 
-      const url = `${API_BASE}/projects/${encodeURIComponent(trimmedPId)}/time-log-summary?fromDate=${encodeURIComponent(startDate)}&toDate=${encodeURIComponent(endDate)}`;
+      const url = `http://localhost:5000/api/projects/${encodeURIComponent(trimmedPId)}/time-log-summary?fromDate=${encodeURIComponent(startDate)}&toDate=${encodeURIComponent(endDate)}`;
       console.log('API URL:', url);
 
       const response = await axios.get(url, {
@@ -142,7 +141,7 @@ export default function App() {
 
       // Fetch sprints and compute totals per sprint
       try {
-        const sprintsResp = await axios.get(`${API_BASE}/projects/${encodeURIComponent(trimmedPId)}/sprints`, {
+        const sprintsResp = await axios.get(`http://localhost:5000/api/projects/${encodeURIComponent(trimmedPId)}/sprints`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const projectSprints = sprintsResp.data?.sprints || [];
@@ -210,7 +209,7 @@ export default function App() {
   // Fallback: fetch workitems and convert to time logs when time-log-summary is empty
   const fallbackFetchWorkItems = async (pId, startDate, endDate, token) => {
     try {
-      const wiUrl = `${API_BASE}/projects/${encodeURIComponent(pId)}/workitems?limit=1000`;
+      const wiUrl = `http://localhost:5000/api/projects/${encodeURIComponent(pId)}/workitems?limit=1000`;
       console.log('Fallback fetching workitems from', wiUrl);
       const resp = await axios.get(wiUrl, { headers: { Authorization: `Bearer ${token}` } });
       const items = resp.data?.items || resp.data || [];
@@ -229,7 +228,7 @@ export default function App() {
 
       // compute sprint totals
       try {
-        const sprintsResp = await axios.get(`${API_BASE}/projects/${encodeURIComponent(pId)}/sprints`, { headers: { Authorization: `Bearer ${token}` } });
+        const sprintsResp = await axios.get(`http://localhost:5000/api/projects/${encodeURIComponent(pId)}/sprints`, { headers: { Authorization: `Bearer ${token}` } });
         const projectSprints = sprintsResp.data?.sprints || [];
         setSprints(projectSprints);
         const totals = {};

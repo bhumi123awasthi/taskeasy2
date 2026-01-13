@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import TaskboardSidebar from "../components/TaskboardSidebar";
 import ProjectName from '../components/ProjectName';
 import axios from 'axios';
-import API_BASE from '../utils/apiBase';
 
 export default function WorkItem() {
   const location = useLocation();
@@ -32,7 +31,7 @@ export default function WorkItem() {
       }
 
       const response = await axios.delete(
-        `${API_BASE}/projects/${selectedProjectId}/workitems/${id}`,
+        `http://localhost:5000/api/projects/${selectedProjectId}/workitems/${id}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 

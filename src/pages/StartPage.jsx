@@ -9,16 +9,13 @@ import { CirclePlus } from "lucide-react";
 import DisplayWork from "../components/project/DisplayWork";
 import DisplayPull from "../components/project/DisplayPull";
 import LeftSidebar from "../components/LeftSidebar";
-import API_BASE from '../utils/apiBase';
 
 export default function StartPage() {
   const location = useLocation();
   const incomingProject = location.state?.project;
   const navigate = useNavigate();
 
-  const API_BASE_LOCAL = API_BASE;
-  const baseURL = `${API_BASE}/projects`;
-  const HOST_BASE = API_BASE.replace(/\/api$/, '');
+  const baseURL = "http://localhost:5000/api/projects";
   const token = localStorage.getItem("token");
   const [projects, setProjects] = useState([]);
   const [category, setCategory] = useState("Projects");
@@ -233,7 +230,7 @@ export default function StartPage() {
                         aria-label={proj ? `Open ${proj.title} summary` : 'Summary (no project)'}
                       >
                         {proj.logo ? (
-                          <img src={`${HOST_BASE}${proj.logo}`} alt={proj.title} className="w-10 h-10 rounded-lg object-cover" />
+                          <img src={`http://localhost:5000${proj.logo}`} alt={proj.title} className="w-10 h-10 rounded-lg object-cover" />
                         ) : (
                           <span className="text-2xl font-bold text-purple-600 dark:text-purple-300">{(proj.title && proj.title[0]) || 'P'}</span>
                         )}

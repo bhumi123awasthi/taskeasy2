@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-import API_BASE from '../utils/apiBase';
-const API_URL = API_BASE;
+const API_URL = 'http://localhost:5000/api';
 
 const authService = {
   register: async (userData) => {

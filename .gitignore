@@ -48,7 +48,3 @@ Thumbs.db
 *.mov
 *.wmv
 
-
-# Backend environment (do not commit secrets)
-backend/.env
-

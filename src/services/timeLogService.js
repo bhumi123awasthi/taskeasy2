@@ -1,5 +1,6 @@
 import axios from 'axios';
-import API_BASE from '../utils/apiBase';
+
+const API_BASE = 'http://localhost:5000/api';
 
 export const fetchTimeLogSummary = async (projectId, filters = {}) => {
   try {
