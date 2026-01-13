@@ -3,7 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
-import axios from "axios";
+import axiosInstance from "../services/axiosInstance";
+import { API_BASE_URL } from "../utils/apiBase";
 import DisplayProject from "../components/project/DisplayProject";
 import { CirclePlus } from "lucide-react";
 import DisplayWork from "../components/project/DisplayWork";
@@ -15,8 +16,6 @@ export default function StartPage() {
   const incomingProject = location.state?.project;
   const navigate = useNavigate();
 
-  const baseURL = "http://localhost:5000/api/projects";
-  const token = localStorage.getItem("token");
   const [projects, setProjects] = useState([]);
   const [category, setCategory] = useState("Projects");
   const [menuOpenId, setMenuOpenId] = useState(null); // which card's "three-dots" menu is open
@@ -26,9 +25,7 @@ export default function StartPage() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await axios.get(baseURL, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await axiosInstance.get('/projects');
         setProjects(res.data.projects || []);
       } catch (err) {
         console.error(err.response?.data || err.message);
@@ -37,7 +34,7 @@ export default function StartPage() {
     };
 
     fetchProjects();
-  }, [baseURL, token]);
+  }, []);
 
   // close menu when clicking outside
   useEffect(() => {
@@ -66,9 +63,7 @@ export default function StartPage() {
     if (!ok) return;
 
     try {
-      await axios.delete(`${baseURL}/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axiosInstance.delete(`/projects/${id}`);
 
       setProjects((prev) => prev.filter((p) => (p._id || p.id) !== id));
       toast.success("Project deleted");
@@ -230,7 +225,7 @@ export default function StartPage() {
                         aria-label={proj ? `Open ${proj.title} summary` : 'Summary (no project)'}
                       >
                         {proj.logo ? (
-                          <img src={`http://localhost:5000${proj.logo}`} alt={proj.title} className="w-10 h-10 rounded-lg object-cover" />
+                          <img src={`${API_BASE_URL}${proj.logo}`} alt={proj.title} className="w-10 h-10 rounded-lg object-cover" />
                         ) : (
                           <span className="text-2xl font-bold text-purple-600 dark:text-purple-300">{(proj.title && proj.title[0]) || 'P'}</span>
                         )}

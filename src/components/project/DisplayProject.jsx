@@ -1,16 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Ellipsis, Trash, Pencil, Link as LinkIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../services/axiosInstance";
+import { API_BASE_URL } from "../../utils/apiBase";
 import { useProject } from '../../hooks/useProject';
 
 export default function DisplayProject({ projects, setProjects }) {
   const [openMenuId, setOpenMenuId] = useState(null);
   const menuRefs = useRef({});
   const navigate = useNavigate();
-  const url = "http://localhost:5000";
-
-  const token = localStorage.getItem("token");
 
   const { setActiveProject } = useProject();
 

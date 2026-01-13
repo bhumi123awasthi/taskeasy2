@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Settings, ChevronDown, ChevronUp, CircleArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import axiosInstance from '../services/axiosInstance';
 import TaskboardSidebar from '../../TaskboardSidebar';
 import ProjectName from '../../ProjectName';
 import { useProject } from '../../../hooks/useProject';
@@ -50,7 +50,7 @@ export default function Taskboard() {
       try {
         const token = localStorage.getItem('token');
         const res = await axios.get(
-          `http://localhost:5000/api/projects/${selectedProjectId}/sprints`,
+          `/projects/${selectedProjectId}/sprints`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         if (res.data.sprints && Array.isArray(res.data.sprints)) {
@@ -71,7 +71,7 @@ export default function Taskboard() {
     const fetchWorkItems = async () => {
       try {
         const token = localStorage.getItem('token');
-        const url = `http://localhost:5000/api/projects/${selectedProjectId}/workitems`;
+        const url = `/projects/${selectedProjectId}/workitems`;
         console.log('Fetching work items from:', url);
         const res = await axios.get(url, {
           headers: { Authorization: `Bearer ${token}` }
@@ -187,9 +187,7 @@ export default function Taskboard() {
       const token = localStorage.getItem('token');
       if (!token) return alert('Not authenticated');
 
-      const res = await axios.patch(
-        `http://localhost:5000/api/projects/${selectedProjectId}/workitems/${workItemId}`,
-        { sprintId },
+      const res = await axiosInstance.patch(`/projects/${selectedProjectId}/workitems/${workItemId}`, { sprintId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -213,9 +211,7 @@ export default function Taskboard() {
       const token = localStorage.getItem('token');
       if (!token) return alert('Not authenticated');
 
-      const response = await axios.delete(
-        `http://localhost:5000/api/projects/${selectedProjectId}/workitems/${workItemId}`,
-        { headers: { Authorization: `Bearer ${token}` } }
+      const response = await axiosInstance.delete(`/projects/${selectedProjectId}/workitems/${workItemId}`, { headers: { Authorization: `Bearer ${token}` } }
       );
 
       if (response.data) {
@@ -253,9 +249,7 @@ export default function Taskboard() {
       console.log('Creating work item with payload:', payload);
       console.log('workItemSprintId value:', workItemSprintId);
 
-      const res = await axios.post(
-        `http://localhost:5000/api/projects/${selectedProjectId}/workitems`,
-        payload,
+      const res = await axiosInstance.post(`/projects/${selectedProjectId}/workitems`, payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -312,9 +306,7 @@ export default function Taskboard() {
         state: sprintState,
       };
 
-      const res = await axios.post(
-        `http://localhost:5000/api/projects/${selectedProjectId}/sprints`,
-        payload,
+      const res = await axiosInstance.post(`/projects/${selectedProjectId}/sprints`, payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 

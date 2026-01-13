@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from 'react-router-dom';
 import LeftSidebar from "../components/LeftSidebar";
-import axios from 'axios';
+import axiosInstance from '../services/axiosInstance';
 
 export default function Summary() {
   const location = useLocation();
   const initialProject = location.state?.project;
   const [project, setProject] = useState(initialProject || null);
-  const token = localStorage.getItem('token');
 
   useEffect(() => {
     if (project) return;
@@ -17,17 +16,14 @@ export default function Summary() {
 
     const fetchProject = async () => {
       try {
-        const res = await axios.get(
-          `http://localhost:5000/api/projects/${projectId}`, 
-          { headers: token ? { Authorization: `Bearer ${token}` } : {} }
-        );
+        const res = await axiosInstance.get(`/projects/${projectId}`);
         setProject(res.data);
       } catch (err) {
         console.error("Failed to fetch project", err);
       }
     };
     fetchProject();
-  }, [location.search, project, token]);
+  }, [location.search, project]);
 
   const projectTitle = project?.title || "ProdigiSign";
 

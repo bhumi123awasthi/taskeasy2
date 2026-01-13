@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import TaskboardSidebar from "../components/TaskboardSidebar";
 import ProjectName from '../components/ProjectName';
-import axios from 'axios';
+import axiosInstance from '../services/axiosInstance';
 
 export default function WorkItem() {
   const location = useLocation();
@@ -30,9 +30,7 @@ export default function WorkItem() {
         return;
       }
 
-      const response = await axios.delete(
-        `http://localhost:5000/api/projects/${selectedProjectId}/workitems/${id}`,
-        { headers: { Authorization: `Bearer ${token}` } }
+      const response = await axiosInstance.delete(`/projects/${selectedProjectId}/workitems/${id}`, { headers: { Authorization: `Bearer ${token}` } }
       );
 
       if (response.data) {

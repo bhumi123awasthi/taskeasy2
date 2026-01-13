@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../services/axiosInstance";
 
 export default function EditProjectPage() {
   const { id } = useParams();
@@ -9,17 +9,13 @@ export default function EditProjectPage() {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const token = localStorage.getItem("token");
-  const url = `http://localhost:5000/api/projects/${id}`;
-
   useEffect(() => {
+    const token = localStorage.getItem("token");
     if (!token) return navigate("/login"); 
 
     const fetchProject = async () => {
       try {
-        const res = await axios.get(url, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await axiosInstance.get(`/projects/${id}`);
         setTitle(res.data.title);
         setDescription(res.data.description);
       } catch (err) {
@@ -36,10 +32,9 @@ export default function EditProjectPage() {
 
     try {
       setLoading(true);
-      await axios.put(
-        url,
-        { title, description },
-        { headers: { Authorization: `Bearer ${token}` } }
+      await axiosInstance.put(
+        `/projects/${id}`,
+        { title, description }
       );
       alert("Project updated successfully");
       navigate("/api/projects");
